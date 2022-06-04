@@ -2,6 +2,16 @@
 First you need to install the Vivado ML Edition - 2022.1  Full Product Installation:   
 https://www.xilinx.com/support/download.html
 
+
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install libncurses5
+sudo apt install libtinfo5
+sudo apt install libncurses5-dev libncursesw5-dev
+```
+
+
 Download the Xilinx Unified Installer:  
 Xilinx Unified Installer 2022.1: Linux Self Extracting Web Installer (BIN - 266.73 MB)
 
