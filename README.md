@@ -3,7 +3,7 @@ First you need to install the Vivado ML Edition - 2022.1  Full Product Installat
 https://www.xilinx.com/support/download.html
 
 
-Much of this documentation is based on Whitney Knitter's blog at:
+Much of this documentation is based on Whitney Knitter's blog at:  
 https://www.hackster.io/whitney-knitter/installing-vivado-vitis-petalinux-2021-2-on-ubuntu-18-04-0d0fdf
 
 
