@@ -134,6 +134,13 @@ Close Vivado or open a new terminal window and launch Vitis:
 source /tools/Xilinx/Vitis/2022.1/settings64.sh
 vitis
 ```
+
+## Download Petalinux Installer
+
+https://www.xilinx.com/xilinx/embedded-design-tools
+
+Download file named: **petalinux-v2022.1-04191534-installer.run**
+
 ## Run PetaLinux Installer
 
 You can install the PetaLinux mostly wherever you prefer, but I like to keep all of the Xilinx tools in the same place so I create a PetaLinux directory in the same directory Vivado and Vitis installed to following the version format as well:
