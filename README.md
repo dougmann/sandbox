@@ -161,7 +161,7 @@ sudo chown -R <user>:<user> /tools/Xilinx/PetaLinux/2022.1/
 ```
 Run the PetaLinux installer:
 ```
-~/Downloads/petalinux-v2022.1-final-installer.run /tools/Xilinx/PetaLinux/2022.1/
+~/Downloads/petalinux-v2022.1-final-installer.run -d /tools/Xilinx/PetaLinux/2022.1/
 ```
 Then test the installation by turning Webtalk on/off:
 ```
