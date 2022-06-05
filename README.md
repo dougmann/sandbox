@@ -28,7 +28,7 @@ sudo dpkg-reconfigure dash
 The next step is to install all of the required package dependencies for the Xilinx tools. The list I've comprised includes everything required from a completely fresh/clean installation of Ubuntu 20.04.4. I comprised this exhaustive list after much trial and error because I found that there wasn't a clear distinct list of the package dependencies for Vivado/Vitis. I was able to find list of package dependencies for PetaLinux here, which are also included in my list below. There are also a few I found just by resolving errors thrown by Vivado and Vitis to the command line while using their respective GUIs.
 
 ## Dependencies
-From the release notes, https://support.xilinx.com/s/article/000033799
+At the bottom of the https://support.xilinx.com/s/article/000033799
 we can get all the dependencies:
 
 ```
