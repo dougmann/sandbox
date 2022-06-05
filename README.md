@@ -6,16 +6,15 @@ https://www.xilinx.com/support/download.html
 Much of this documentation is based on Whitney Knitter's blog at:
 https://www.hackster.io/whitney-knitter/installing-vivado-vitis-petalinux-2021-2-on-ubuntu-18-04-0d0fdf
 
-There is a bug where the installer ca hang if you don't have certain dependencies. Make sure to install the following first.
+
+## First things first, update all repositories
+
 
 ```
 sudo apt update
 sudo apt upgrade
-sudo apt install libncurses5
-sudo apt install libtinfo5
-sudo apt install libncurses5-dev libncursesw5-dev
 ```
-System Configuration
+## System Configuration
 
 All of the Xilinx tools require 32-bit libraries at some point in time to compile. DocNav requires several 32-bit libraries and PetaLinux needs 32-bit architectures for cross compilation. Therefore the first step is to add the 32-bit architecture to your Ubuntu system. Since there is a 99.999% chance your computer has an Intel based processor, add i386 using the package management system, dpkg:
 ```
@@ -28,6 +27,7 @@ sudo dpkg-reconfigure dash
 
 The next step is to install all of the required package dependencies for the Xilinx tools. The list I've comprised includes everything required from a completely fresh/clean installation of Ubuntu 20.04.4. I comprised this exhaustive list after much trial and error because I found that there wasn't a clear distinct list of the package dependencies for Vivado/Vitis. I was able to find list of package dependencies for PetaLinux here, which are also included in my list below. There are also a few I found just by resolving errors thrown by Vivado and Vitis to the command line while using their respective GUIs.
 
+## Dependencies
 From the release notes, https://support.xilinx.com/s/article/000033799
 we can get all the dependencies:
 
@@ -35,8 +35,16 @@ we can get all the dependencies:
 sudo apt-get install iproute2 gawk python3 python build-essential gcc git make net-tools libncurses5-dev tftpd zlib1g-dev libssl-dev flex bison libselinux1 gnupg wget git-core diffstat chrpath socat xterm autoconf libtool tar unzip texinfo zlib1g-dev gcc-multilib automake zlib1g:i386 screen pax gzip cpio python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint3
 ```
 
+There is a bug where the installer can hang if you don't have certain dependencies. Make sure to install the following first.
+```
+sudo apt install libncurses5
+sudo apt install libtinfo5
+sudo apt install libncurses5-dev libncursesw5-dev
+```
 
-Download the Xilinx Unified Installer:  
+
+
+## Download the Xilinx Unified Installer:  
 Xilinx Unified Installer 2022.1: Linux Self Extracting Web Installer (BIN - 266.73 MB)
 
 Make sure the installer has execute priviledges and run the installer:  
@@ -54,7 +62,7 @@ Make sure to enable support for Zynq-7000 and Ultrascale
 Click "Next" to use defaults and click "Install"  
 
 
-Create TFTP Server
+## Create TFTP Server
 
 PetaLinux also requires a TFTP server service to support TFTP booting on a target system. In the /etc/xinetd.d/ directory create a TFTP service file:
 ```
@@ -73,10 +81,9 @@ service tftp
     server_args = /tftpboot 
     disable = no
     }
-   ``` 
+``` 
     
-    Then create the directory for the TFTP service to pull files from during the target boot process such as the boot image file (BOOT.bin), kernel, device tree, etc. Give the directory the appropriate permissions and give ownership to the same user specified in the TFTP service.
-    
+Then create the directory for the TFTP service to pull files from during the target boot process such as the boot image file (BOOT.bin), kernel, device tree, etc. Give the directory the appropriate permissions and give ownership to the same user specified in the TFTP service.    
     
 ```
 sudo mkdir /tftpboot
@@ -91,7 +98,7 @@ sudo /etc/init.d/xinetd stop
 sudo /etc/init.d/xinetd start
 ```
 
-Add Your User to Dialout Group
+## Add Your User to Dialout Group
 
 Add your local user to the dial out group if you haven't already so Vivado and Vitis can access the computer's USB ports for serial communication with FPGA targets.
 ```
@@ -101,7 +108,7 @@ At this point, I recommend rebooting your machine to make sure everything is imp
 
 
 
-Run Vitis Installer
+## Run Vitis Installer
 
 While the downloads website has separate tabs for Vivado and Vitis, the Vitis installer also includes the option to install Vivado. The Vivado installer however only contains the option to install Vivado and if you try to then run the Vitis installer later, it will force you to install it in a different location. This can get messy very quickly, so I highly recommend only using the Vitis installer because it also contains the option to only install Vivado. The difference is that you'll be able to run the installer again later and install Vitis in the same location with Vivado.
 
@@ -127,7 +134,7 @@ Close Vivado or open a new terminal window and launch Vitis:
 source /tools/Xilinx/Vitis/2022.1/settings64.sh
 vitis
 ```
-Run PetaLinux Installer
+## Run PetaLinux Installer
 
 You can install the PetaLinux mostly wherever you prefer, but I like to keep all of the Xilinx tools in the same place so I create a PetaLinux directory in the same directory Vivado and Vitis installed to following the version format as well:
 ```
@@ -155,7 +162,7 @@ source /tools/Xilinx/PetaLinux/2022.1/settings.sh
 petalinux-util --webtalk off
 petalinux-util --webtalk on
 ```
-Notes
+## Notes
 
 It's worth noting that a PetaLinux project can not be built offline without access to the internet unless specifically configured to do so. This involves downloading the proper repositories locally to your machine and pointing the PetaLinux project to it, which I'll cover in a different post. This is something that you'll have to do to each PetaLinux project individually that you want to be able to run a build on offline.
 
