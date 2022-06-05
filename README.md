@@ -3,6 +3,11 @@ First you need to install the Vivado ML Edition - 2022.1  Full Product Installat
 https://www.xilinx.com/support/download.html
 
 
+Much of this documentation is based on Whitney Knitter's blog at:
+https://www.hackster.io/whitney-knitter/installing-vivado-vitis-petalinux-2021-2-on-ubuntu-18-04-0d0fdf
+
+There is a bug where the installer ca hang if you don't have certain dependencies. Make sure to install the following first.
+
 ```
 sudo apt update
 sudo apt upgrade
@@ -10,13 +15,21 @@ sudo apt install libncurses5
 sudo apt install libtinfo5
 sudo apt install libncurses5-dev libncursesw5-dev
 ```
+System Configuration
 
+All of the Xilinx tools require 32-bit libraries at some point in time to compile. DocNav requires several 32-bit libraries and PetaLinux needs 32-bit architectures for cross compilation. Therefore the first step is to add the 32-bit architecture to your Ubuntu system. Since there is a 99.999% chance your computer has an Intel based processor, add i386 using the package management system, dpkg:
 ```
 sudo dpkg --add-architecture i386
 ```
+Change Ubuntu's shell from dash to bash as PetaLinux is only compatible with bash:
 ```
 sudo dpkg-reconfigure dash
 ```
+
+The next step is to install all of the required package dependencies for the Xilinx tools. The list I've comprised includes everything required from a completely fresh/clean installation of Ubuntu 20.04.4. I comprised this exhaustive list after much trial and error because I found that there wasn't a clear distinct list of the package dependencies for Vivado/Vitis. I was able to find list of package dependencies for PetaLinux here, which are also included in my list below. There are also a few I found just by resolving errors thrown by Vivado and Vitis to the command line while using their respective GUIs.
+
+From the release notes, https://support.xilinx.com/s/article/000033799
+we can get all the dependencies:
 
 
 sudo apt-get install iproute2 gawk python3 python build-essential gcc git make net-tools libncurses5-dev tftpd zlib1g-dev libssl-dev flex bison libselinux1 gnupg wget git-core diffstat chrpath socat xterm autoconf libtool tar unzip texinfo zlib1g-dev gcc-multilib automake zlib1g:i386 screen pax gzip cpio python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint3
@@ -95,12 +108,12 @@ While the downloads website has separate tabs for Vivado and Vitis, the Vitis in
 
 If using the single file all-OS installer, extract the installer folder from the downloaded compressed package and run the setup installer GUI script:
 ```
-sudo ./Dowloads/Xilinx_Unified_2021.2_1021_0703/xsetup
+sudo ./Dowloads/Xilinx_Unified_2022.1_0420_0327/xsetup
 ```
 If using the Linux self-extracting web installer, give it the appropriate permissions to make it executable and run it:
 ```
-sudo chmod 777 ./Downloads/Xilinx_Unified_2021.2_1021_0703_Lin64.bin
-sudo ./Downloads/Xilinx_Unified_2021.2_1021_0703_Lin64.bin
+sudo chmod 777 ./Downloads/Xilinx_Unified_2022.1_0420_0327_Lin64.bin
+sudo ./Downloads/Xilinx_Unified_2022.1_0420_0327_Lin64.bin
 ```
 The GUI by default will install Vitis and Vivado to /tools/Xilinx/. You can change this if desired, but I highly recommend leaving it in this location.
 
